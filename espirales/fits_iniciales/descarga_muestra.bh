@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Lista de IDs de tus 8 galaxias espirales puras
+ids=(311 684 740 802 813 872 915 925)
+
+echo "Iniciando descarga de la muestra final (8 galaxias)..."
+echo "----------------------------------------------------"
+
+for id in "${ids[@]}"; do
+    # Formatear el ID a 4 dígitos (ej: 311 -> 0311)
+    id_pad=$(printf "%04d" $id)
+    
+    echo "[*] Procesando Galaxia Califa ID: $id_pad"
+
+    # URL para GMe (gsd6e)
+    url_gme="https://pycasso.iaa.es/cubes/K${id_pad}_gsd6e.fits"
+    # URL para CBE (zca6e)
+    url_cbe="https://pycasso.iaa.es/cubes/K${id_pad}_zca6e.fits"
+
+    echo "    > Descargando GMe..."
+    wget -qN $url_gme
+    
+    echo "    > Descargando CBE..."
+    wget -qN $url_cbe
+    
+    echo "    [OK] Galaxia $id_pad completada."
+done
+
+echo "----------------------------------------------------"
+echo "Descarga finalizada. Tienes 16 archivos FITS nuevos."
