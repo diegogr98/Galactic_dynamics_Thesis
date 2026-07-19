@@ -79,7 +79,7 @@ axes = axes.flatten() # Aplanar para el loop
 
 for i, id_obj in enumerate(lista_ids):
     id_str = f"{id_obj:04d}"
-    archivo_fits = f"K{id_str}_gsd6e.fits"
+    archivo_fits = f"K{id_str}_zca6e.fits"
 
     # Extraer TODOS los datos de la fila de esta galaxia directamente
     fila_galaxia = df_galaxias[df_galaxias['califaID'] == id_obj]
@@ -103,10 +103,10 @@ for i, id_obj in enumerate(lista_ids):
         # Graficar perfiles radiales comparativos simultáneos
         if len(bv_circ) > 0:
             ax.plot(bc_circ, np.log10(bv_circ), 'o-', color='darkcyan',
-                    markersize=3, linewidth=1, label='GMe Circular')
+                    markersize=3, linewidth=1, label='cbe Circular')
         if len(bv_el_des) > 0:
             ax.plot(bc_el_des, np.log10(bv_el_des), 's-', color='indigo',
-                    markersize=3, linewidth=1, label='GMe Elíptico')
+                    markersize=3, linewidth=1, label='cbe Elíptico')
 
         # Línea horizontal del límite cinemático de referencia
         ax.axhline(np.log10(80), color='teal', linestyle='--', alpha=0.6, label='Límite ~80 km/s')
@@ -130,7 +130,7 @@ for i, id_obj in enumerate(lista_ids):
 
         # Etiquetas de los ejes distribuidas de forma limpia
         if i >= (filas - 1) * columnas: ax.set_xlabel('Radio [píxeles]')
-        if i % columnas == 0: ax.set_ylabel(r'$\sigma$ [km/s]')
+        if i % columnas == 0: ax.set_ylabel(r'Log_10$\sigma$ [km/s]')
 
         # Leyenda pequeña para que quepa en los subplots
         ax.legend(loc='lower left', fontsize=5.5, framealpha=0.6)
@@ -144,6 +144,6 @@ for j in range(num_galaxias, len(axes)):
     fig.delaxes(axes[j])
 
 plt.tight_layout()
-plt.savefig('final_gme.png', dpi=200)
+plt.savefig('vel_disp_cbe.png', dpi=200)
 print("¡Mosaico final generado con éxito sin usar archivos externos de fotometría!")
 plt.show()
